@@ -1,2 +1,1 @@
-# Que-Perdio-Teambook
-Teambook del equipo Que Perdio
+#Teambook del equipo Que Perdio
