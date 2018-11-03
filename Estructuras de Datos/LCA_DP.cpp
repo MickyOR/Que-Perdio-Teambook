@@ -1,21 +1,7 @@
 #include <bits/stdc++.h>
-#define PI                acos(-1)
-#define pb                push_back
-#define mp                make_pair
-#define all(a)            (a).begin(), (a).end()
 #define clr(a,h)          memset(a, (h), sizeof(a))
-#define F first
-#define S second
-int faster_in(){int r=0,c;for(c=getchar();c<=32;c=getchar());if(c=='-') return -faster_in();for(;c>32;r=(r<<1)+(r<<3)+c-'0',c=getchar());return r;}
 
 using namespace std;
-
-typedef long long       ll;
-typedef pair<int, int>  ii;
-typedef vector<int>     vi;
-typedef vector<ii>      vii;
-typedef vector<ll>      vll;
-const int INF = int(1e9 + 7);
 
 const int tam = 1010; // Max Nodos
 const int Log2Tam = (log(tam)/log(2)) + 3;
@@ -76,9 +62,6 @@ int LCA(int a, int b)
 
 int main()
 {
-    std::ios::sync_with_stdio(false); cin.tie(0);
-    //freopen("","r",stdin);
-    //freopen("","w",stdout);
     /*
         Iniciar el arbol en el grafo g
         Asignar la raiz en la variable root
