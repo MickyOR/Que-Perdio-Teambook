@@ -49,7 +49,7 @@ int LCA(int a, int b)
 		}
 	}
 	if (a == b) return a;
-	for (int pot = Log2Tam-1; pot >= 0; pot++)
+	for (int pot = Log2Tam-1; pot >= 0; pot--)
 	{
 		if (dp[a][pot] != dp[b][pot])
 		{
