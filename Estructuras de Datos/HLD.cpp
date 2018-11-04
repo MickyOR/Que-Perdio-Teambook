@@ -10,8 +10,9 @@ Cambiar:
 	- Operador en queryUp y query
 Inicializar:
 	- root para LCA
-	- chainNo para HLD
+	- chainNo = 0 para HLD
 	- Llenar chainHead[] con -1 para HLD
+	- actPosInBase = 0 para Segment Tree
 */
 
 const int tam = 10010;
