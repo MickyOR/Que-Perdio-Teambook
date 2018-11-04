@@ -11,6 +11,7 @@ Cambiar:
 Inicializar:
 	- root para LCA
 	- chainNo para HLD
+	- Llenar chainHead[] con -1 para HLD
 */
 
 const int tam = 10010;
