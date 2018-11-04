@@ -8,6 +8,9 @@ Cambiar:
 	- Valor que se guarda en cada nodo en HLD
 	- Operador en Segment Tree
 	- Operador en queryUp y query
+Inicializar:
+	- root para LCA
+	- chainNo para HLD
 */
 
 const int tam = 10010;
