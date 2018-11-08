@@ -99,6 +99,22 @@ public class JavaObjectSorting {
      * @param args
      */
     public static void main(String[] args) {
+        Map<Integer, String> datos = new HashMap<Integer, String>();
+        datos.put(1, "uno");
+        datos.put(2, "dos");
+        datos.put(3, "tres");
+
+        for (Map.Entry<Integer, String> entry : datos.entrySet()) {
+            System.out.println("clave=" + entry.getKey() + ", valor=" + entry.getValue());
+        }
+
+        Set<String> set = new HashSet<String>();
+
+        //populate set
+
+        for (String s : set) {
+            System.out.println(s);
+        }
 
         //sorting custom object array
         Employee[] empArr = new Employee[4];
