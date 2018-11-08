@@ -16,9 +16,11 @@ Inicializar:
 */
 
 const int tam = 10010;
-const int Log2Tam = ( log(tam)/log(2) ) + 3;
+const int Log2Tam = 15;
 
-vector< vi > g;
+int nodeCost[tam];
+
+vi g[tam];
 //HLD
 int chainNo, chainPos[tam], chainIdx[tam], chainHead[tam], chainSize[tam];
 //DFS
@@ -26,15 +28,16 @@ int dp[tam][Log2Tam], depth[tam], subTreeSize[tam];
 int n, m, root;
 //SegTree
 int segTree[tam*4], posInBase[tam], baseArray[tam], actPosInBase;
-
+int segTreeQ[tam*4];
 
 void DFS(int v, int p, int d)
 {
 	dp[v][0] = p;
 	depth[v] = d;
 	subTreeSize[v] = 1;
-	for (int u : g[v])
+	for (int i = 0; i < g[v].size(); i++)
 	{
+		int u = g[v][i];
 		if (u == p) continue;
 		DFS(u, v, d+1);
 		subTreeSize[v] += subTreeSize[u];
@@ -48,12 +51,13 @@ void HLD(int v, int p)
 	chainPos[v] = chainSize[chainNo];
 	chainSize[chainNo]++;
 	posInBase[v] = actPosInBase;
-	baseArray[actPosInBase++] = v; // Aqui guardamos lo que queremos trabajar
-								   // con el Segment Tree
+	baseArray[actPosInBase++] = nodeCost[v]; // Aqui guardamos lo que queremos trabajar
+								   			 // con el Segment Tree
 
 	int bestChild = -1, maxSize = -1;
-	for (int u : g[v])
+	for (int i = 0; i < g[v].size(); i++)
 	{
+		int u = g[v][i];
 		if (u == p) continue;
 		if (subTreeSize[u] > maxSize)
 		{
@@ -64,8 +68,9 @@ void HLD(int v, int p)
 
 	if (bestChild != -1) HLD(bestChild, v);
 
-	for (int u : g[v])
+	for (int i = 0; i < g[v].size(); i++)
 	{
+		int u = g[v][i];
 		if (u == p || u == bestChild) continue;
 		chainNo++;
 		HLD(u, v);
@@ -76,6 +81,7 @@ void initLCA()
 {
 	clr(dp, -1);
 	DFS(root, -1, 0);
+	return;
 	for (int pot = 1; pot < Log2Tam; pot++)
 	{
 		for (int v = 0; v < n; v++)
@@ -100,12 +106,13 @@ int LCA(int a, int b)
 		}
 	}
 	if (a == b) return a;
-	while (dp[a][0] != dp[b][0])
+	for (int pot = Log2Tam-1; pot >= 0; pot--)
 	{
-		int pot = 0;
-		while (dp[a][pot+1] != dp[b][pot+1]) pot++;
-		a = dp[a][pot];
-		b = dp[b][pot];
+		if (dp[a][pot] != dp[b][pot])
+		{
+			a = dp[a][pot];
+			b = dp[a][pot];
+		}
 	}
 	int lca = dp[a][0];
 	return lca;
@@ -123,7 +130,7 @@ void initSegTree(int b, int e, int nodo)
 	initSegTree(mid+1, e, R);
 
 	// Funcion del Segment Tree que queremos hacer sobre el arbol
-	segTree[nodo] = max(segTree[L], segTree[R]);
+	segTree[nodo] = segTree[L] > segTree[R] ? segTree[L] : segTree[R];
 }
 
 void updateSegTree(int b, int e, int nodo, int pos, int val)
@@ -137,7 +144,7 @@ void updateSegTree(int b, int e, int nodo, int pos, int val)
 	if (pos <= mid) updateSegTree(b, mid, L, pos, val);
 	else updateSegTree(mid+1, e, R, pos, val);
 	
-	segTree[nodo] = max( segTree[L], segTree[R] );
+	segTree[nodo] = segTree[L] > segTree[R] ? segTree[L] : segTree[R];
 }
 
 int querySegTree(int b, int e, int nodo, int i, int j)
@@ -150,7 +157,7 @@ int querySegTree(int b, int e, int nodo, int i, int j)
 	{
 		int r1 = querySegTree(b, mid, L, i, j);
 		int r2 = querySegTree(mid+1, e, R, i, j);
-		return max(r1, r2);
+		return r1 > r2 ? r1 : r2;
 	}
 }
 
@@ -162,12 +169,13 @@ int queryUp(int u, int v)
 		uChain = chainIdx[u];
 		if (uChain == vChain)
 		{
-			int queryAns = querySegTree(0, actPosInBase-1, 0, posInBase[v], posInBase[u]);
+			if (u == v) break;
+			int queryAns = querySegTree(0, actPosInBase-1, 0, posInBase[v]+1, posInBase[u]);
 			if (queryAns > ans)
 			{
 				ans = queryAns;
-				break;
 			}
+			break;
 		}
 		int queryAns = querySegTree(0, actPosInBase-1, 0, posInBase[ chainHead[uChain] ], posInBase[u]);
 		if (queryAns > ans) ans = queryAns;
@@ -183,7 +191,7 @@ int query(int a, int b)
 	int r1, r2;
 	r1 = queryUp(a, lca);
 	r2 = queryUp(b, lca);
-	return max(r1, r2);
+	return r1 > r2 ? r1 : r2;
 }
 
 int main()
