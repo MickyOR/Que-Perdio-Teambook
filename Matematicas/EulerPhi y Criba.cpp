@@ -1,6 +1,6 @@
 bitset<100000> bi;
-vi primos;
-vector<ll> pric;
+vi primos;  //primos
+vector<ll> pric;  //primos al cuadrado
 void criba()
 {
 	bi.set();
