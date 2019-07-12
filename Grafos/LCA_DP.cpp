@@ -54,7 +54,7 @@ int LCA(int a, int b)
 		if (dp[a][pot] != dp[b][pot])
 		{
 			a = dp[a][pot];
-			b = dp[a][pot];
+			b = dp[b][pot];
 		}
 	}
 	int lca = dp[a][0];
