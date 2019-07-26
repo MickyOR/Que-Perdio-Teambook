@@ -1,48 +1,15 @@
-typedef vector<ll>      vll;
-vector<int> alz(string a)
+vector<int> alz(string s)
 {
-	int n = a.size();
-	vi res(n);
-	int left=0,right=0;
-	for(int k=1;k<n;k++)
+	int n = s.size();
+	vector<int> z(n, 0);
+	for(int i = 2, l = 0, r = 0; i < n; i++)
 	{
-		if(right<k)
-		{
-			right=left=k;
-			while(right<n&&a[right]==a[right-left])
-				right++;
-			res[k] = right - left;
-			right--;
-		}
-		else
-		{
-			int k1 = k - left;
-			if(res[k1]< right - k + 1)
-				res[k] = res[k1];
-			else
-			{
-				left=k;
-				while(right<n&&a[right] == a[right-left])
-					right++;
-				res[k] = right - left;
-				right--;
-			}
-		}
+		if(i <= r)
+			z[i] = min(z[i - l], r - i + 1);
+		while(i + z[i] < n && s[z[i]] == s[i + z[i]])
+			z[i]++;
+		if(r < i + z[i] - 1)
+			l = i, r = i + z[i] - 1;
 	}
-	return res;
-}
-int main()
-{
-	string a,b;
-	cin>>a>>b;
-	vector<int> v = alz(b+'$'+a);
-	int ta = a.size();
-	int tb = b.size();
-	ta = ta + tb + 1;
-	for(int i=tb+1;i<ta;i++)
-	{
-		if(v[i]==tb)
-			cout<<i-tb-1<<endl;
-	}
-	return 0;
+	return z;
 }
