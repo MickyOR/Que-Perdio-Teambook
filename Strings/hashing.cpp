@@ -1,25 +1,36 @@
-struct Hash {
-	int P=1777771,MOD[2],PI[2];
-	vector<int> h[2],pi[2];
-	Hash(string& s){
-		MOD[0]=999727999;MOD[1]=1070777777;
-		PI[0]=325255434;PI[1]=10018302;
-		fore(k,0,2)h[k].resize(s.size()+1),pi[k].resize(s.size()+1);
-		fore(k,0,2){
-			h[k][0]=0;pi[k][0]=1;
-			ll p=1;
-			fore(i,1,s.size()+1){
-				h[k][i]=(h[k][i-1]+p*s[i-1])%MOD[k];
-				pi[k][i]=(1LL*pi[k][i-1]*PI[k])%MOD[k];
-				p=(p*P)%MOD[k];
+
+ll pot(ll b, ll e, ll mod)
+{
+	if(e == 0) return 1;
+	return (pot((b*b)%mod, e/2, mod) * (e & 1? b : 1))%mod;
+}
+struct Hash
+{
+	int p = 997, m[2], in[2];
+	vector<int> h[2], inv[2];
+	Hash(string s)
+	{
+		m[0] = 998244353, m[1] = 1000000009;
+		fore(i, 0, 2)
+		{
+			in[i] = pot(p, m[i]-2, m[i]);
+			h[i].resize(s.size() + 1);
+			inv[i].resize(s.size() + 1);
+			ll acu = 1;
+			h[i][0] = 0, inv[i][0] = 1;
+			fore(j, 0, s.size())
+			{
+				h[i][j + 1] = (h[i][j] + acu * s[j]) % m[i];
+				inv[i][j + 1] = (1ll * inv[i][j] * in[i]) % m[i];
+				acu = (acu * p) % m[i];
 			}
 		}
 	}
-	ll get(int s, int e){
-		ll h0=(h[0][e]-h[0][s]+MOD[0])%MOD[0];
-		h0=(1LL*h0*pi[0][s])%MOD[0];
-		ll h1=(h[1][e]-h[1][s]+MOD[1])%MOD[1];
-		h1=(1LL*h1*pi[1][s])%MOD[1];
-		return (h0<<32)|h1;
+	ll get(int b, int e)
+	{
+		ll ha[2];
+		fore(i, 0, 2)
+			ha[i] = ((((h[i][e] - h[i][b]) * (ll)inv[i][b]) % m[i]) + m[i]) % m[i];
+		return((ha[0] << 32) | ha[1]) ;
 	}
 };
