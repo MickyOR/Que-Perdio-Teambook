@@ -6,7 +6,7 @@ vector<int> lcp(string &s, vector<int> &sa)
 	fore(i, 0, n)
 	{
 		k = sa1[i];
-		if(k < n)
+		if(k < n - 1)
 			while(s[i + z] == s[sa[k+1] + z])
 				z++;
 		lcp[k] = z;
