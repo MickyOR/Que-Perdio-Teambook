@@ -40,3 +40,16 @@ int go(int v, char c)
 		else t[v].go[c] = go(suff(v), c);
 	return t[v].go[c];
 }
+int super(int v)
+{
+	if(t[v].super == -1)
+	{
+		if(v == 0 || t[v].link == 0)
+			t[v].super = 0;
+		if(t[suff(v)].leaf.size() > 0)
+			t[v].super = suff(v);
+		else
+			t[v].super = super(suff(v));
+	}
+	return t[v].super;
+}
