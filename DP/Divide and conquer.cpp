@@ -1,5 +1,5 @@
 ll lastDP[tam], DP[tam];
-int C[tam][tam];
+int C[tam][tam]; // Cambiar a una funcion de costo si pre-procesar ocupa mucha memoria
 
 void DC(int b, int e, int KL, int KR)
 {
