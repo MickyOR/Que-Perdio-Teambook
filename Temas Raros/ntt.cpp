@@ -1,14 +1,14 @@
 // el modulo debe ser un primo de la forma p = c*2^k + 1
-const ll mod = 998244353; // c*2^k + 1 = 119*2^23 + 1
+const int mod = 998244353; // c*2^k + 1 = 119*2^23 + 1
 
 // 3 es raiz primitiva de mod, root = 3^c % mod = 3^119 % mod
-const ll root = 15311432;
+const int root = 15311432;
 
 // root_1 = root^-1
-const ll root_1 = 469870224;
+const int root_1 = 469870224;
 
 // 2^k
-const ll root_pw = 1 << 23;
+const int root_pw = 1 << 23;
  
 ll modPow(ll b, ll e)
 {
@@ -20,48 +20,47 @@ ll modPow(ll b, ll e)
 		return (1LL * res * res % mod) % mod;
 }
  
-void fft(vector<ll> & a, bool invert) {
-    ll n = a.size();
- 
-    for (ll i = 1, j = 0; i < n; i++) {
-        ll bit = n >> 1;
+void fft(vector<int> & a, bool invert) {
+    int n = a.size();
+
+    for (int i = 1, j = 0; i < n; i++) {
+        int bit = n >> 1;
         for (; j & bit; bit >>= 1)
             j ^= bit;
         j ^= bit;
- 
+
         if (i < j)
             swap(a[i], a[j]);
     }
- 
-    for (ll len = 2; len <= n; len <<= 1) {
-        ll wlen = invert ? root_1 : root;
-        for (ll i = len; i < root_pw; i <<= 1)
-            wlen = (ll)(1LL * wlen * wlen % mod);
- 
-        for (ll i = 0; i < n; i += len) {
-            ll w = 1;
-            for (ll j = 0; j < len / 2; j++) {
-                ll u = a[i+j], v = (ll)(1LL * a[i+j+len/2] * w % mod);
+
+    for (int len = 2; len <= n; len <<= 1) {
+        int wlen = invert ? root_1 : root;
+        for (int i = len; i < root_pw; i <<= 1)
+            wlen = (int)(1LL * wlen * wlen % mod);
+
+        for (int i = 0; i < n; i += len) {
+            int w = 1;
+            for (int j = 0; j < len / 2; j++) {
+                int u = a[i+j], v = (int)(1LL * a[i+j+len/2] * w % mod);
                 a[i+j] = u + v < mod ? u + v : u + v - mod;
                 a[i+j+len/2] = u - v >= 0 ? u - v : u - v + mod;
-                w = (ll)(1LL * w * wlen % mod);
+                w = (int)(1LL * w * wlen % mod);
             }
         }
     }
- 
+
     if (invert) {
-        ll n_1 = modPow(n, mod-2);
-        for (ll & x : a)
-        {
-        	x = (ll)(1LL * x * n_1 % mod);
-        }
+	// Pre-calcular inversos modulares para mejorar eficiencia
+        int n_1 = modPow(n, mod-2);
+        for (int & x : a)
+            x = (int)(1LL * x * n_1 % mod);
     }
 }
  
-vector<ll> fftMul(vector<ll> & a, vector<ll> & b)
+vector<int> fftMul(vector<int> & a, vector<int> & b)
 {
-	vector<ll> fa(a.begin(), a.end()), fb(b.begin(), b.end());
-	ll n = 1;
+	vector<int> fa(a.begin(), a.end()), fb(b.begin(), b.end());
+	int n = 1;
 	while (n < a.size() + b.size())
 		n <<= 1;
 	fa.resize(n);
@@ -70,8 +69,8 @@ vector<ll> fftMul(vector<ll> & a, vector<ll> & b)
 	fft(fa, false);
 	fft(fb, false);
  
-	for (ll i = 0; i < n; i++)
-		fa[i] = (1LL * (ll)fa[i] * (ll)fb[i] % mod);
+	for (int i = 0; i < n; i++)
+		fa[i] = (int)(1LL * fa[i] * fb[i] % mod);
 	fft(fa, true);
  
 	return fa;
