@@ -10,12 +10,12 @@ const int root_1 = 469870224;
 // 2^k
 const int root_pw = 1 << 23;
  
-ll modPow(ll b, ll e)
+int modPow(int b, int e)
 {
 	if (e == 0) return 1;
-	ll res = modPow(b, e/2);
+	int res = modPow(b, e/2);
 	if (e%2 == 1)
-		return (1LL * (b * res % mod) * res % mod) % mod;
+		return ((1LL * b * res % mod) * res % mod) % mod;
 	else 
 		return (1LL * res * res % mod) % mod;
 }
