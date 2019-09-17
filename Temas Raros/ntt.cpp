@@ -1,8 +1,12 @@
+// el modulo debe ser un primo de la forma p = c*2^k + 1
 const ll mod = 998244353; // c*2^k + 1 = 119*2^23 + 1
+
 // 3 es raiz primitiva de mod, root = 3^c % mod = 3^119 % mod
 const ll root = 15311432;
+
 // root_1 = root^-1
 const ll root_1 = 469870224;
+
 // 2^k
 const ll root_pw = 1 << 23;
  
