@@ -6,7 +6,7 @@ vector<cd> fft(vector<cd> a)
     if(n==1) return a;
     double theta = 2.0*acos(-1)/(double)n;
     cd w = 1,
-    wn = cd(cos(theta), mul*sin(theta));
+    cd wn = cd(cos(theta), mul*sin(theta));
     vector<cd> y(n), aEven(n/2), aOdd(n/2);
     for(int i=0;i<n/2;i++)
     {
