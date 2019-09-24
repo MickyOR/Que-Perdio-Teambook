@@ -1,3 +1,8 @@
+/*
+DP[i][j] = min( DP[i-1][k] + C[k][j] )
+K[i][j] <= K[i][j+1]
+*/
+
 ll lastDP[tam], DP[tam];
 int C[tam][tam]; // Cambiar a una funcion de costo si pre-procesar ocupa mucha memoria
 
