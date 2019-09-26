@@ -3,7 +3,7 @@ Basado en problema: Minimo costo de cortar una barra en K lugares pre-definidos
                     Costo de corte: largo de la barra que se esta cortando
                     
 A[i] -> posicion del i-esimo corte, A[0] = 0, A[n-1] = Largo total
-DP[i][j] = min( DP[i][k] + DP[k][j] ) + C[i][j], para i < k < j donde C[i][j] es el largo de la barra A[i] <-> A[j]
+DP[i][j] = min( DP[i][k] + DP[k][j] ) + C[i][j], para i <= k <= j donde C[i][j] es el largo de la barra A[i] <-> A[j]
 K[i][j-1] <= K[i][j] <= K[i+1][j]
 */
 
