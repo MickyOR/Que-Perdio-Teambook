@@ -1,4 +1,4 @@
-//calculates number of integer points (x ; y) such for 0≤x<n and 0 < y ≤ ⌊kx+b⌋
+//calculates number of integer points (x ; y) such for 0 ≤ x < n and 0 < y ≤ ⌊k * x + b⌋
 int count_lattices(double k, double b, long long n) {
     auto fk = floor(k);
     auto fb = floor(b);
