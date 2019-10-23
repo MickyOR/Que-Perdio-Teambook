@@ -8,7 +8,7 @@ bool ins(vector<point> &pol, point p)
 	}
 	return true;
 }
-// logaritmico
+// logaritmico clockwise
 bool inslog(vector<point> &pol, point p)
 {
 	int lo = 1, hi = pol.size() - 2, mid;
