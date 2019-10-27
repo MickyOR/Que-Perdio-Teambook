@@ -1,4 +1,4 @@
-
+// devuelve horario
 vector<point> hull(vector<point> p)
 {
 	int n = p.size();
