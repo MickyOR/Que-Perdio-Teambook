@@ -24,7 +24,7 @@ vector<int> suffixa(string &s)
 			ax = (sa[i] - k + n) % n;
 			sa1[head[col[ax]]++] = ax;
 		}
-		sa = sa1;
+		swap(sa, sa1);
 		col1[sa[0]] = head[0] = cc = 0;
 		fore(i, 1, n)
 		{
