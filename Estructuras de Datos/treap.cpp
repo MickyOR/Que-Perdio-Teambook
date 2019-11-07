@@ -1,50 +1,48 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-struct node{
+struct item{
     int key, pri, siz;
-    node *l, *r;
+    item *l, *r;
+    item() {}
+    item(int key) : key(key), siz(1), pri(rand()) {}
 };
-typedef node* pnode;
-int sz(pnode t)
+typedef item* pitem;
+int sz(pitem t)
 {
     return (t?t->siz:0);
 }
-void up_sz(pnode t)
+void up_sz(pitem t)
 {
     if(t) t->siz = sz(t->l) + 1 + sz(t->r);
 }
-void split(pnode t, pnode &l, pnode &r, int val)
+void split(pitem t, pitem &l, pitem &r, int val)
 {
     if(!t) r = l = NULL;
-    else if(t->key <= val) split(t->r, t->r, r, val), l = t;
-    else split(t->l, l, t->r, val), r = l;
+    else if(t->key < val) split(t->r, t->r, r, val), l = t;
+    else split(t->l, l, t->l, val), r = t;
     up_sz(t);
 }
-void merge(pnode &t, pnode l, pnode r)
+void merge(pitem &t, pitem l, pitem r)
 {
     if(!l || !r) t=(l?l:r);
     else if(l->pri >= r->pri) merge(l->r, l->r, r), t = l;
     else merge(r->l, l, r->l),t=r;
     up_sz(t);
 }
-void insert(pnode &t, pnode it)
+void erase(pitem t)
 {
-    if(!t) t = it;
-    else if(it->pri > t->pri) split(t, it->l, it->r, it->key), t = it;
-    else insert((t->key <= it->key?t->l:t->r), it);
-    up_sz(t);
+    if(t)
+    {
+        erase(t->l);
+        erase(t->r);
+        delete t;
+    }
 }
-void erase(pnode &t, int val)
+
+void print(pitem t)
 {
-    if(!t) return;
-    else if(t->key == val) {pnode temp = t; merge(t, t->l, t->r); free(temp);}
-    else erase((t->key <= val?t->l:t->r),val);
-    up_sz(t);
-}
-pnode init(int val)
-{
-    pnode ret = (pnode)malloc(sizeof(node));
-    ret->key = val, ret->siz = 1, ret -> pri = rand(), ret->l = ret->r = NULL;
-    return ret;
+    if(t)
+    {
+        print(t->l);
+        cout<<t->key<<' ';
+        print(t->r);
+    }
 }
