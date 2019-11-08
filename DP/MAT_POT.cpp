@@ -15,13 +15,9 @@ void mult(vector<vector<ll> > m1, vector<vector<ll> > m2)
       answer=0;
       forr(k,0,m2.size())
       {
-     //   cout<<m1[i][k]<<"*"<<m2[k][j]<<" ";
         answer+=((m1[i][k]%MOD)*(m2[k][j]%MOD))%MOD;
- 
         answer%=MOD;
       }
-   //   cout<<endl;
- //     cout<<answer<<endl;   
       fila.pb(answer);
     }
     ans.pb(fila);
