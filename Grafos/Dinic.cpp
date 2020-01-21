@@ -45,8 +45,10 @@ int maxFlow()
     while(bfs())
     {
         memset(usados,0,sizeof(usados));
-        while(ax=dfs(s,INT_MAX))
+        while(true)
         {
+            ax=dfs(s,INT_MAX);
+            if (ax == 0) break;
             flujo+=ax;
         }
     }
