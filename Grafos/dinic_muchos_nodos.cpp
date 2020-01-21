@@ -63,17 +63,18 @@ int dinic_DFS(int u, int f)
 	return 0;
 }
 
-int cnt = 0;
-
 int maxFlow()
 {
 	int flow = 0;
 	while ( dinic_BFS() )
 	{
-		//cout << cnt++ << endl;
 		fill(work, work + 2*n + 2, 0);
-		while (int df = dinic_DFS(S, INF))
+		while (true)
+		{
+			int df = dinic_DFS(S, INF);
+			if (df == 0) break;
 			flow += df;
+		}
 	}
 	return flow;
 }
