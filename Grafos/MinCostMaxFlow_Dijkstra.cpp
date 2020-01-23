@@ -46,10 +46,41 @@ int n, m;
 int S, T;
 vector<int> dist;
 int pot[tam], curFlow[tam], prevNode[tam], prevEdge[tam];
+int Q[tam];
+bool inQueue[tam];
+
+void bellmanFord()
+{
+	fill(pot, pot + n, INF);
+	pot[S] = 0;
+	int qt = 0;
+	Q[qt++] = S;
+	for (int qh = 0; (qh - qt) % n != 0; qh++)
+	{
+		int u = Q[qh % n];
+		inQueue[u] = false;
+		for (int i = 0; i < (int)G[u].size(); i++)
+		{
+			Edge &e = G[u][i];
+			if (e.cap <= e.flow) continue;
+			int v = e.to;
+			int newDist = pot[u] + e.cost;
+			if (pot[v] > newDist)
+			{
+				pot[v] = newDist;
+				if (!inQueue[v])
+				{
+					Q[qt++ % n] = v;
+					inQueue[v] = true;
+				}
+			}
+		}
+	}
+}
 
 ii MinCostMaxFlow()
 {
-	// Falta Bellmand - Ford para cuando hay aristas negativas
+	bellmanFord();
 	int flow = 0;
 	int flowCost = 0;
 	while (true) // always a good start for an algorithm :v
@@ -65,7 +96,7 @@ ii MinCostMaxFlow()
 			int actDist = s.begin() -> first;
 			s.erase(s.begin());
 			if (actDist > dist[u]) continue;
-			for (int i = 0; i < G[u].size(); i++)
+			for (int i = 0; i < (int)G[u].size(); i++)
 			{
 				Edge &e = G[u][i];
 				int v = e.to;
