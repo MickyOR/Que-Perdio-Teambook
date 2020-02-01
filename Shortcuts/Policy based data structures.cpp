@@ -5,7 +5,8 @@
 using namespace std;
 using namespace __gnu_pbds;
 
-
+//As I know, there is no implemented tree multiset in STL. 
+//However you can use pair<T,int> as a key where the second element in pair is the time when item has been added.
 typedef tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> ordered_set;
 
 int main()
