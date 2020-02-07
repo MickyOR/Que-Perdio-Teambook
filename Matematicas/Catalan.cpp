@@ -1,3 +1,7 @@
+// Cat[n] = C(2n, n) / (n + 1)
+// Cat[n+1] = Cat[n] * 2 * (2 * n + 1) / (n + 2)
+// Cat[n] = Cat[n-1] * 2 * (2 * n - 1) / (n + 1)
+
 ll cata(int n)
 {
 	ll bino[n+1];
