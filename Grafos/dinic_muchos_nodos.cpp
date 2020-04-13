@@ -20,7 +20,7 @@ void addEdge(int s, int t, int cap)
 }
 
 bool dinic_BFS(){
-	fill(dist, dist + 2*n + 2, -1);
+	fill(dist, dist + n + 2, -1);
 	dist[S] = 0;
 	int qt = 0;
 	q[qt++] = S;
@@ -68,7 +68,7 @@ int maxFlow()
 	int flow = 0;
 	while ( dinic_BFS() )
 	{
-		fill(work, work + 2*n + 2, 0);
+		fill(work, work + n + 2, 0);
 		while (true)
 		{
 			int df = dinic_DFS(S, INF);
