@@ -3,7 +3,7 @@ vector<vector<ll> > ans;
 const ll MOD=1e9+7;
 void mult(vector<vector<ll> > m1, vector<vector<ll> > m2)
 {
-  if ( m1[0].size()!=m2.size())  
+  if(m1[0].size()!=m2.size())  
     assert(false);
   ans.clear();
   ll answer=0;
@@ -15,8 +15,7 @@ void mult(vector<vector<ll> > m1, vector<vector<ll> > m2)
       answer=0;
       forr(k,0,m2.size())
       {
-        answer+=((m1[i][k]%MOD)*(m2[k][j]%MOD))%MOD;
-        answer%=MOD;
+        answer = (answer + m1[i][k] * m2[k][j]) % MOD;
       }
       fila.pb(answer);
     }
