@@ -1,3 +1,8 @@
+/*typedef double T;
+typedef complex<T> pt;
+#define x real()
+#define y imag()*/
+
 //typedef long long ll;
 //typedef long double ll;
 
