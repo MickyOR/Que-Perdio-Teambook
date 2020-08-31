@@ -1,9 +1,5 @@
 
-ll pot(ll b, ll e, ll mod)
-{
-	if(e == 0) return 1;
-	return (pot((b*b)%mod, e/2, mod) * (e & 1? b : 1))%mod;
-}
+ll pot(ll b, ll e , ll m);
 struct Hash
 {
 	int p = 997, m[2], in[2];
