@@ -2,7 +2,7 @@ struct item{
     int key, pri, siz;
     item *l, *r;
     item() {}
-    item(int key) : key(key), siz(1), pri(rand()) {}
+    item(int key) : key(key), siz(1), pri(rand()), l(0), r(0) {}
 };
 typedef item* pitem;
 int sz(pitem t)
