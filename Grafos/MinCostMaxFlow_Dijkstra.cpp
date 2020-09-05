@@ -1,3 +1,5 @@
+// O(min(E^2∗V^2, E∗V∗FLOW))
+
 #include <bits/stdc++.h>
 //#include <ext/pb_ds/assoc_container.hpp>
 //#include <ext/pb_ds/tree_policy.hpp>
@@ -41,7 +43,9 @@ void addEdge(int s, int t, int cap, int cost)
 	G[t].pb(b);
 }
 
-int n, m;
+int n, m; // En vez de n es mejor usar una variable diferente como 'nodes'
+          // La cantidad de nodos en la red de flujo suele ser difente a la
+          // cantidad en el grafo original
 
 int S, T;
 vector<int> dist;
