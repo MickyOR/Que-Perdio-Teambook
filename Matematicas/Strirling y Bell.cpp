@@ -1,4 +1,5 @@
-
+// stir[n][k] cantidad de formas de paritcionar un conjunto de n elementos en k conjuntos
+// bell[n] cantidad de formas de particionar un conjunto
 ll stir[tam][tam];
 ll bell[tam];
 void stirBell()
