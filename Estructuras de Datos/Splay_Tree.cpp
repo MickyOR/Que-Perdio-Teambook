@@ -1,21 +1,45 @@
 struct item{
-    int key, siz;
+    int siz;
+    ll key, tot, lazy;
     bool lef;
     item *l, *r, *p;
     item() {}
-    item(int key) : key(key), siz(1), l(0), r(0), p(0) {}
+    item(int key) : key(key), tot(key), lazy(0), siz(1), l(0), r(0), p(0) {}
 };
 typedef item* pitem;
-int sz(pitem t)
+int tot(pitem t)
+{
+    return (t?t->tot:0);
+}
+int siz(pitem t)
 {
     return (t?t->siz:0);
 }
+void push(pitem t)
+{
+	if(t && t->lazy)
+	{
+		t->key = (t->key + t->lazy) % MOD;
+		t->tot = (t->lazy * t->siz % MOD + t->tot) % MOD;
+		if(t->l) t->l->lazy = (t->l->lazy + t->lazy) % MOD;
+		if(t->r) t->r->lazy = (t->r->lazy + t->lazy) % MOD;
+		t->lazy = 0;
+	}
+}
 void up_sz(pitem t)
 {
-    if(t) t->siz = sz(t->l) + 1 + sz(t->r);
+    if(t)
+    {
+    	push(t->l);
+    	push(t->r);
+    	t->siz = siz(t->l) + 1 + siz(t->r);
+    	t->tot = (tot(t->l) + t->key + tot(t->r)) % MOD;
+    }
 }
 void rotate(pitem t)
 {
+	push(t->p);
+	push(t);
 	if(t->lef)
 	{
 		t->p->l = t->r;
@@ -57,6 +81,7 @@ void splay(pitem t)
 }
 pitem search(pitem t, int val)
 {
+	push(t);
 	if(val > t->key && t->r)
 		return search(t->r, val);
 	if(val < t->key && t->l)
