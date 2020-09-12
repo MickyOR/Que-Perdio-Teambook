@@ -37,6 +37,9 @@ void rotate(pitem t)
 	up_sz(t->p);
 	up_sz(t);
 	t->p = ax;
+	if(ax)
+		if(t->lef) ax->l = t;
+		else ax->r = t;
 }
 void splay(pitem t)
 {
