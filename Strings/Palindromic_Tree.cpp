@@ -35,3 +35,24 @@ void create(string s)
 		nodes[i] = act;
 	}
 }
+
+//para debuggear :v se necesita añadir puntero al padre
+string print1(pnode p)
+{
+	string s = "";
+	s += p->ch;
+	if(p->siz == 0) return "";
+	if(p->siz == 1)
+		return s;
+	return s + print1(p->par) + s;
+}
+string print(pnode p)
+{
+	string res = "";
+	while(p->siz > 0)
+	{
+		res += print1(p) + '\n';
+		p = p->link[0];
+	}
+	return res;
+}
