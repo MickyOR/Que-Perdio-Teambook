@@ -3,6 +3,8 @@ bool cmp(int a, int b)
 {
 	return asd[a] < asd[b];
 }
+// el table es para comparar substrings memoria nlogn
+vector<vector<int>> table;
 vector<int> suffixa(string &s)
 {
 	int n = s.size(), cc, ax;
@@ -17,6 +19,7 @@ vector<int> suffixa(string &s)
 			cc++, head[cc] = i;
 		col[sa[i]] = cc;
 	}
+	table.pb(col);
 	for(int k = 1; k < n; k *= 2)
 	{
 		fore(i, 0, n)
@@ -33,7 +36,22 @@ vector<int> suffixa(string &s)
 			col1[sa[i]] = cc;
 		}
 		col = col1;
+		table.pb(col);
 	}
 	return sa;
+}
 
+pair<int, int> query(int b, int e)
+{
+	int lev = 31 - __builtin_clz(e - b + 1);	
+	return mp(table[lev][b], table[lev][e - (1 << lev) + 1]);	
+}
+int siz;
+bool comp(int b1, int e1, int b2, int e2)
+{ 
+	siz = min(e1 - b1, e2 - b2);
+	le = query(b1, b1 + siz), ri = query(b2, b2 + siz);
+	if(le == ri)
+		return e1 - b1 < e2 - b2;
+	return le < ri;
 }
