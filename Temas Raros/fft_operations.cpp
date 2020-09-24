@@ -79,7 +79,7 @@ vector<poly> init(poly &x)
 	int n = sz(x);
 	vector<poly> t(2 * n);
 	fore(i, n, 2 * n) t[i] = {MOD - x[i - n], 1};
-	for(int i = n - 1; i > -1; i--) t[i] = multiply(t[i<<1], t[i<<1|1]);
+	for(int i = n - 1; i > 0; i--) t[i] = multiply(t[i<<1], t[i<<1|1]);
 		return t;
 }
 poly evaluate(poly a, poly x)
