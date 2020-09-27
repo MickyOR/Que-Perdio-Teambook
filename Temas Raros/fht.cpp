@@ -1,6 +1,6 @@
 // copiado del vasito
 ll c1[tam+9],c2[tam+9];  // tam must be power of 2 !!
-void fhwt(ll* p, int n, bool inv){
+void fht(ll* p, int n, bool inv){
 	for(int l = 1; 2 * l <= n; l *= 2)
 	for(int i = 0; i < n; i += 2 * l)
 	fore(j, 0, l)
@@ -21,15 +21,15 @@ vector<ll> multiply(vector<ll>& p1, vector<ll>& p2){
 	fore(i, 0, n) c1[i] = 0, c2[i] = 0;
 	fore(i, 0, sz(p1)) c1[i] = p1[i];
 	fore(i, 0, sz(p2)) c2[i] = p2[i];
-	fhwt(c1, n, false); fhwt(c2, n, false);
+	fht(c1, n, false); fht(c2, n, false);
 	fore(i, 0, n) c1[i] *= c2[i];
-	fhwt(c1, n, true);
+	fht(c1, n, true);
 	return vector<ll>(c1, c1 + n);
 }
 
-void fhwt(vector<ll>& p, bool inv)
+void fht(vector<ll>& p, bool inv)
 {
     fore(i, 0, sz(p)) c1[i] = p[i];
-    fhwt(c1, sz(p), inv);
+    fht(c1, sz(p), inv);
     fore(i, 0, sz(p)) p[i] = c1[i];
 }
