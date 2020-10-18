@@ -13,6 +13,8 @@ struct point
 	point(ll x, ll y): x(x), y(y) {}
 	point operator -(point p) {return point(x - p.x, y - p.y);}
 	point operator +(point p) {return point(x + p.x, y + p.y);}
+	ll sq() {return x * x + y * y;}
+	double abs() {return sqrt(sq());}
 	ll operator ^(point p) {return x * p.y - y * p.x;}
   	ll operator *(point p) {return x * p.x + y * p.y;}
   	point operator *(ll a) {return point(x * a, y * a);}
