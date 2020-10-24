@@ -18,7 +18,7 @@ struct point
 	ll operator ^(point p) {return x * p.y - y * p.x;}
   	ll operator *(point p) {return x * p.x + y * p.y;}
   	point operator *(ll a) {return point(x * a, y * a);}
-	bool operator <(point p) {return x == p.x ? y < p.y : x < p.x;}
+	bool operator <(const point& p) const {return x == p.x ? y < p.y : x < p.x;}
 	bool left(point a, point b) {return ((b - a) ^ (*this - a)) >= 0;}
 	ostream& operator<<(ostream& os) {
 		return os << "("<< x << "," << y << ")";
