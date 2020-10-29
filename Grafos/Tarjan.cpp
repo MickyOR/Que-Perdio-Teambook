@@ -50,3 +50,36 @@ void find_cutpoints() {
             dfs (i);
     }
 }
+
+vector<int> id;
+int curBCTNode;
+vector<vector<int> > tree;
+vector<bool> isAP;
+
+void buildTree() {
+    curBCTNode = 0;
+    id.assign(n, -1);
+    tree.clear();
+    isAP.clear();
+    fore(v, 0, n) {
+        if (cutpoint[v]) {
+            id[v] = tree.size();
+            tree.pb({});
+            isAP.pb(true);
+        }
+    }
+    for (auto comp : comps) {
+        int v = tree.size();
+        tree.pb({});
+        isAP.pb(false);
+        for (int x : comp) {
+            if (cutpoint[x]) {
+                tree[v].pb(id[x]);
+                tree[id[x]].pb(v);
+            }
+            else {
+                id[x] = v;
+            }
+        }
+    }
+}
