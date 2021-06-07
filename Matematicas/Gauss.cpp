@@ -1,4 +1,7 @@
+// resuelve Ax = b, dada la matriz a de n * (m + 1), n ecuaciones y m variables, siendo la ultima columna el vector b
 // The function returns the number of solutions of the system (0,1,or ∞). if there's at least a solution, it's in ans
+const double EPS = 1e-9;
+const int INF = 2; // it doesn't actually have to be infinity or a big number
 int gauss (vector < vector<double> > a, vector<double> & ans) {
     int n = (int) a.size();
     int m = (int) a[0].size() - 1;
