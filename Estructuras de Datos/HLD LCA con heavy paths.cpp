@@ -1,3 +1,14 @@
+/*
+Nota:
+- el segment tree no esta implementado, solo HLD
+
+Uso:
+- poner grafo en G
+- correr init(N)
+- para cada nodo v -> segBase[pos[v]] = val[v] (segBase es un nuevo arreglo)
+- inicializar segment tree para [0, N-1]
+- implementar la funcion segQuery(int l, int r)
+*/
 vector<vi> G;
 vi parent, depth, heavy, head, pos;
 int curPos;
