@@ -76,9 +76,9 @@ void init_sv(){
 }
 void fact(ll n, map<ll,int>& f){ // call init_sv first!!!
 	for(auto&& p:f){
-		while(n%p.fst==0){
-			p.snd++;
-			n/=p.fst;
+		while(n%p.f==0){
+			p.s++;
+			n/=p.f;
 		}
 	}
 	if(n<MAXP)while(n>1)f[sv[n]]++,n/=sv[n];
