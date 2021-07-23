@@ -1,10 +1,12 @@
-//copiado del vasito
+ //copiado del vasito
 typedef ll tp;
-#define add(n,s,d,k) fore(i,0,n)(d)[i]+=(s)[i]*k
+// #define add(n,s,d,k) fore(i,0,n)(d)[i]+=(s)[i]*k
+#define add(n,s,d,k) fore(i,0,n)(d)[i]+=(s)[i]*k%MOD, (d)[i] = ((d)[i] % MOD + MOD) % MOD;
 tp* ini(int n){tp *r=new tp[n];fill(r,r+n,0);return r;}
 void karatsura(int n, tp* p, tp* q, tp* r){
 	if(n<=0)return;
-	if(n<35)fore(i,0,n)fore(j,0,n)r[i+j]+=p[i]*q[j];
+	// if(n<35)fore(i,0,n)fore(j,0,n)r[i+j]+=p[i]*q[j];
+	if(n<35)fore(i,0,n)fore(j,0,n)r[i+j]+=p[i]*q[j] % MOD, r[i + j] %= MOD;
 	else {
 		int nac=n/2,nbd=n-n/2;
 		tp *a=p,*b=p+nac,*c=q,*d=q+nac;
