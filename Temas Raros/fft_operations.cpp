@@ -105,7 +105,7 @@ poly interpol(poly x, poly y)
 		tree1[i] = sum(multiply(tree[i<<1], tree1[i<<1|1]), multiply(tree1[i<<1], tree[i<<1|1]));
 	return tree1[1];
 }
-
+	
 
 //para meter sin fft (ineficientes)
 // n^2
