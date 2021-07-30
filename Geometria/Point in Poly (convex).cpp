@@ -7,17 +7,19 @@ bool ins(vector<point> &pol, point p)
 	return true;
 }
 // logaritmico counterclockwise
-bool inslog(vector<point> &pol, point p)
+bool inpol(poly &pol, point p)
 {
-	int lo = 1, hi = pol.size() - 2, mid;
-	if(p.left(pol[1], pol[0]) || p.left(pol[0], pol[hi])) return false;
-	while(lo < hi - 1)
+	int n = pol.size();
+	if(((pol[1] - pol[0]) ^ (p - pol[0])) < 0 || ((pol[n - 1] - pol[0]) ^ (p - pol[0])) > 0)
+		return 0;
+	int lo = 1, hi = n - 2, mid, res;
+	while(lo <= hi)
 	{
 		mid = (lo + hi) / 2;
-		if(p.left(pol[0], pol[mid]))
-			lo = mid;
+		if(((pol[mid] - pol[0]) ^ (p - pol[0])) >= 0)
+			res = mid, lo = mid + 1;
 		else
-			hi = mid;
+			hi = mid - 1;
 	}
-	return p.left(pol[lo], pol[hi]);
+	return ((pol[res + 1] - pol[res]) ^ (p - pol[res])) >= 0;
 }
