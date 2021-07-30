@@ -1,44 +1,30 @@
-struct pt{
-    long long x, y;
-    pt operator + (const pt & p) const {
-        return pt{x + p.x, y + p.y};
-    }
-    pt operator - (const pt & p) const {
-        return pt{x - p.x, y - p.y};
-    }
-    long long cross(const pt & p) const {
-        return x * p.y - y * p.x;
-    }
-};
-
-void reorder_polygon(vector<pt> & P){
-    size_t pos = 0;
-    for(size_t i = 1; i < P.size(); i++){
-        if(P[i].y < P[pos].y || (P[i].y == P[pos].y && P[i].x < P[pos].x))
-            pos = i;
-    }
-    rotate(P.begin(), P.begin() + pos, P.end());
+typedef vector<point> poly;
+void norm(poly &pol)
+{
+	int pos = 0;
+	fore(i, 0, pol.size())
+	{
+		if(pol[i] < pol[pos])
+			pos = i;
+	}
+	rotate(pol.begin(), pol.begin() + pos, pol.end());
 }
-
-vector<pt> minkowski(vector<pt> P, vector<pt> Q){
-    // the first vertex must be the lowest
-    reorder_polygon(P);
-    reorder_polygon(Q);
-    // we must ensure cyclic indexing
-    P.push_back(P[0]);
-    P.push_back(P[1]);
-    Q.push_back(Q[0]);
-    Q.push_back(Q[1]);
-    // main part
-    vector<pt> result;
-    size_t i = 0, j = 0;
-    while(i < P.size() - 2 || j < Q.size() - 2){
-        result.push_back(P[i] + Q[j]);
-        auto cross = (P[i + 1] - P[i]).cross(Q[j + 1] - Q[j]);
-        if(cross >= 0)
-            ++i;
-        if(cross <= 0)
-            ++j;
-    }
-    return result;
+poly minkos(poly &a, poly &b)
+{
+	norm(a);
+	norm(b);
+	int posa = 0, posb = 0, ta = a.size(), tb = b.size();
+	poly res;
+	ll cro;
+	while(posa < ta || posb < tb)
+	{
+		res.pb(a[(posa) % ta] + b[(posb) % tb]);
+		cro = (a[(posa + 1) % ta] - a[posa % ta]) ^ (b[(posb + 1) % tb] - b[posb % tb]);
+		if(cro == 0)
+			posa++, posb++;
+		else if(cro < 0)
+			posb++;
+		else posa++;
+	}
+	return res;
 }
