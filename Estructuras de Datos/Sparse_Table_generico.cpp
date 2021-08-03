@@ -19,3 +19,13 @@ struct sparse_table {
         return f(t[h][l], t[h][r-(1<<h)+1]);
     }
 };
+
+
+sparse_table g(all(vec), [](ll x, ll y){
+    return __gcd(x, y);
+});
+
+
+sparse_table g(ar, ar + n, [](ll x, ll y){
+    return __gcd(x, y);
+});
