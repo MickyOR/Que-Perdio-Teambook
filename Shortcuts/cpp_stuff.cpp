@@ -16,6 +16,8 @@ int __builtin_ctz (unsigned int x)
 // Returns the number of leading 0-bits in x. x=0 is undefined.
 int __builtin_clz (unsigned int x)
 // x of type long long just add 'll' at the end of the function.
+__builtin_parity(x): 
+// the parity (even or odd) of the number of ones in the bit representation
 int __builtin_popcountll (unsigned long long x)
 // Get the value of the least significant bit that is one.
 v=(x&(-x))
