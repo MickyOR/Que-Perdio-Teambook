@@ -5,11 +5,11 @@ Cat[0] = 1;
 Cat[n+1] = Cat[n] * 2 * (2 * n + 1) / (n + 2);
 Cat[n] = Cat[n-1] * 2 * (2 * n - 1) / (n + 1);
 
-// Convolucion Catalan, paréntesis balanceados en k + 1 cajas
-// Catk[n] = C(2n + k, n) * (k + 1) / (n + k + 1)
+// Convolucion Catalan, paréntesis balanceados en k cajas
+// Catk[n] = C(2n + k - 1, n) * k / (n + k)
 Catk[0] = 1;
-Catk[n + 1] = Catk[n] * (2 * n + 1 + k) * (2 * n + 2 + k) / (n + 1) / (n + k + 2);
-Catk[n] = Catk[n - 1] * (2 * n + k) * (2 * n + k - 1) / n / (n + k + 1);
+Catk[n + 1] = Catk[n] * (2 * n + k) * (2 * n + 1 + k) / (n + 1) / (n + k + 1);
+Catk[n] = Catk[n - 1] * (2 * n + k - 1) * (2 * n + k - 2) / n / (n + k);
 
 int main()
 {
