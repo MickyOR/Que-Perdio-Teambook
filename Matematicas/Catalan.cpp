@@ -13,6 +13,9 @@ Catk[n] = Catk[n - 1] * (2 * n + k) * (2 * n + k - 1) / n / (n + k + 1);
 
 int main()
 {
+	// count the number of plane trees with a given set of leaves, 
+	// the number of ways of inserting parentheses into a sequence, 
+	// and the number of ways of dissecting a convex polygon into smaller polygons by inserting diagonals
 	ll scat[26];//super catalan
 	scat[0]=scat[1]=1;
 	for(int i=2;i<26;i++)
