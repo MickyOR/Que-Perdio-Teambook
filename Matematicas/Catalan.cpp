@@ -1,19 +1,15 @@
+// Catalan, parentesis balanceados, arboles binarios, triangulacion poligono convexto de n + 2 lados, caminos en grilla sin atravesar diagonal
 // Cat[n] = C(2n, n) / (n + 1)
 // C(n, k) es el coeficiente binomial
-// Cat[0] = 1
-// Cat[n+1] = Cat[n] * 2 * (2 * n + 1) / (n + 2)
-// Cat[n] = Cat[n-1] * 2 * (2 * n - 1) / (n + 1)
+Cat[0] = 1;
+Cat[n+1] = Cat[n] * 2 * (2 * n + 1) / (n + 2);
+Cat[n] = Cat[n-1] * 2 * (2 * n - 1) / (n + 1);
 
-ll cata(int n)
-{
-	ll bino[n+1];
-	memset(bino,0ll,sizeof(bino));
-	bino[0]=1;
-	for(int i=1;i<=2*n;i++)
-		for(int j=min(i,n);j>0;j--)
-			bino[j]+=bino[j-1];
-	return bino[n]/(n+1);
-}
+// Convolucion Catalan, paréntesis balanceados en k cajas
+// Catk[n] = C(2n + k, n) * (k + 1) / (n + k + 1)
+Catk[0] = 1;
+Catk[n + 1] = Catk[n] * (2 * n + 1 + k) * (2 * n + 2 + k) / (n + 1) / (n + k + 2);
+Catk[n] = Catk[n - 1] * (2 * n + k) * (2 * n + k - 1) / n / (n + k + 1);
 
 int main()
 {
