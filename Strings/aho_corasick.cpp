@@ -37,7 +37,7 @@ int go(int v, char c)
 {
 	if(!t[v].go.count(c))
 		if(t[v].next.count(c)) t[v].go[c] = t[v].next[c];
-		else t[v].go[c] = go(suff(v), c);
+		else t[v].go[c] = (v==0?0:go(suff(v),c));
 	return t[v].go[c];
 }
 int super(int v)
