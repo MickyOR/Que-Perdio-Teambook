@@ -25,3 +25,12 @@ struct point
 	}
 
 };
+
+void polarSort(vector<point>& v) {
+  sort(v.begin(), v.end(), [] (point a, point b) {
+    const point origin{0, 0};
+    bool ba = a < origin, bb = b < origin;
+    if (ba != bb) { return ba < bb; }
+    return (a^b) > 0;
+  });
+}
